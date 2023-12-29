@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-test",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "core-js": "^3.25.3",
+    "nuxt": "^2.15.8",
+    "vue": "^2.7.10",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10"
+  },
+  "devDependencies": {
+    "@egoist/tailwindcss-icons": "^1.7.1",
+    "@iconify/json": "^2.2.161",
+    "@nuxtjs/tailwindcss": "^6.10.1",
+    "postcss": "^8.4.17"
+  }
+}
