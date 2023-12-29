@@ -1,5 +1,5 @@
 <template>
-	<form class="" @submit.prevent="submitHandler">
+	<form @submit.prevent="submitForm">
 
 		<div class="card">
 			<div class="flex gap-4">
@@ -50,7 +50,7 @@
 				<div class="form-title">Данные для доставки</div>
 			</div>
 			<div class="pl-12 pr-20 pb-8 flex flex-col gap-14">
-				<div class="">
+				<div>
 					<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
 						<svg class="absolute pointer-events-none" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_3_1354)">
@@ -63,26 +63,59 @@
 								</clipPath>
 							</defs>
 						</svg>
+						<!-- :class="{invalid: ($v.name.$dirty && !$v.name.required) | ($v.name.$dirty && !$v.name.name)}" -->
 						<input 
+							id="name"
 							placeholder="Имя"
 							class="w-full pl-10 border-b border-[#D9D9D9] focuse:border-none" 
 							type="text"
-						>
+							v-model="$v.form.name.$model"
+							:class="{ 'border-[#FF0000]': $v.form.name.$error }" 
+						> 
 					</div>
-					<div class="text-xs text-[#FF0000]">Это обязательное поле</div>	
+					<div v-if="$v.form.name.$error" class="text-xs text-[#FF0000]">Имя является обязательным полем</div>
 				</div>
-
 				<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
 					<svg class="absolute pointer-events-none"  width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M16.5557 11.8149C15.4537 11.8149 14.3716 11.6426 13.3462 11.3037C12.8438 11.1323 12.2261 11.2896 11.9194 11.6045L9.8955 13.1324C7.54833 11.8794 6.10252 10.4341 4.8667 8.10455L6.34959 6.13336C6.73486 5.74861 6.87305 5.18658 6.70748 4.65923C6.36717 3.62845 6.1943 2.54691 6.1943 1.44441C6.19434 0.647953 5.54639 0 4.74998 0H1.44436C0.647953 0 0 0.647953 0 1.44436C0 10.5733 7.42678 18 16.5557 18C17.3521 18 18 17.352 18 16.5556V13.2593C18 12.4629 17.352 11.8149 16.5557 11.8149Z" fill="#474747"/>
 					</svg>
-					<input 
+					<!-- v-model="phone" -->
+					<input
+						id="phone"
 						placeholder="Телефон"
 						class="w-full pl-10 border-b border-[#D9D9D9] focuse:border-none" 
 						type="text"
 					>
-				</div>	
-				<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+				</div>
+				<div>
+					<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+						<svg class="absolute pointer-events-none" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<g clip-path="url(#clip0_3_934)">
+								<path d="M18 9C18 13.9706 13.9706 18 9 18C4.02937 18 0 13.9706 0 9C0 4.02937 4.02937 0 9 0C13.9706 0 18 4.02937 18 9Z" fill="#474747"/>
+								<path d="M9 16.0312C5.12292 16.0312 1.96875 12.8771 1.96875 9C1.96875 5.12292 5.12292 1.96875 9 1.96875C12.8771 1.96875 16.0312 5.12292 16.0312 9C16.0312 12.8771 12.8771 16.0312 9 16.0312ZM9 3.02344C5.70451 3.02344 3.02344 5.70451 3.02344 9C3.02344 12.2955 5.70451 14.9766 9 14.9766C12.2955 14.9766 14.9766 12.2955 14.9766 9C14.9766 5.70451 12.2955 3.02344 9 3.02344Z" fill="white"/>
+								<ellipse cx="8.99993" cy="9.00017" rx="7.71429" ry="7.71429" fill="#474747"/>
+								<path d="M9 12.4799C8.70872 12.4799 8.47266 12.2439 8.47266 11.9526V8.4032C8.47266 8.11206 8.70872 7.87585 9 7.87585C9.29128 7.87585 9.52734 8.11206 9.52734 8.4032V11.9526C9.52734 12.2439 9.29128 12.4799 9 12.4799Z" fill="white"/>
+								<path d="M9.74396 6.43301C9.74396 6.8439 9.4108 7.17706 8.99991 7.17706C8.58902 7.17706 8.25586 6.8439 8.25586 6.43301C8.25586 6.02199 8.58902 5.68896 8.99991 5.68896C9.4108 5.68896 9.74396 6.02199 9.74396 6.43301Z" fill="white"/>
+							</g>
+							<defs>
+								<clipPath id="clip0_3_934">
+									<rect width="18" height="18" fill="white"/>
+								</clipPath>
+							</defs>
+						</svg>
+						<input 
+							id="email"
+							placeholder="Дополнительная информация"
+							class="w-full pl-10 border-b border-[#D9D9D9] focuse:border-none" 
+							type="text"
+							v-model="$v.form.email.$model"
+							:class="{ 'border-[#FF0000]': $v.form.email.$error }"
+						>
+					</div>	
+					<div v-if="$v.form.email.$error && $v.form.email.$dirty" class="text-xs text-[#FF0000]">Email является обязательным полем</div>
+					  <div v-if="!$v.form.email.email" class="text-xs text-[#FF0000]">Email должен быть действительным</div>
+				</div>
+				<!-- <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
 					<svg class="absolute pointer-events-none" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g clip-path="url(#clip0_3_934)">
 							<path d="M18 9C18 13.9706 13.9706 18 9 18C4.02937 18 0 13.9706 0 9C0 4.02937 4.02937 0 9 0C13.9706 0 18 4.02937 18 9Z" fill="#474747"/>
@@ -98,18 +131,17 @@
 						</defs>
 					</svg>
 					<input 
+						id="info"
 						placeholder="Дополнительная информация"
 						class="w-full pl-10 border-b border-[#D9D9D9] focuse:border-none" 
 						type="text"
 					>
-				</div>	
+				</div>	 -->
 
 			</div>
 		</div>
 
 		<div class="card">
-
-			
 			<div class="pl-12 pr-20 pb-8 pt-4">
 				<div class="flex gap-4 border-b pb-4 border-gray-300 mb-4">
 					<div class="text-lg">Cтоимость товаров</div>
@@ -120,12 +152,10 @@
 					<div class="text-lg font-normal">450 ₽</div>
 				</div>
 			</div>
-
 			<button type="submit" class="form-btn">Купить и оплатить</button>
 			<div class="text-xs font-light text-[#212121] mt-4">
 				Создавая заказ, вы соглашаетесь с <a href="#" class="text-[#185598]">политикой обработки персональных данных</a>
 			</div>
-
 		</div>
 
 	</form>
@@ -133,9 +163,18 @@
 </template>
 
 <script>
+import { validationMixin } from '../plugins/vuelidate'
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
 	name: 'FormBasket',
+	mixins: [validationMixin],
+	data() {
+		return {
+		name: '',
+		email: "",
+		}
+	},
 	props: {
 		active: {
 			type: Boolean
@@ -157,9 +196,20 @@ export default {
 		required: true
 	  },
 	},
+	validations: {
+		form: {
+			name: { required },
+			email: { required, email }
+		},
+  },
 	methods: {
-		submitHandler(){
-			this.router.push('/')
+		submitForm() {
+			this.$v.$touch();
+			return
+			// if (!this.$v.$invalid) {
+			// 	// Здесь вы можете выполнить действия при успешной валидации формы
+			// 	// например, отправка формы на сервер
+			// }
 		}
 	}
 }
