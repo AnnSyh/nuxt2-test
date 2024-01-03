@@ -10,10 +10,7 @@ module.exports = {
 			'lg' : '976px',
 			'xl' : '1280px',
 		},
-		// colors: {
-		// 	'bubble-gum': '#d3dce6',
-		// 	'bg-nav-color': '#062D4E',
-		// }
+
 	},
 	plugins: [
 		iconsPlugin({

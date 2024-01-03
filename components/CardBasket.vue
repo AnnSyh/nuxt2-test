@@ -5,22 +5,22 @@
 
 		<div class="max-w-[210px] relative flex flex-col justify-between">
 			<span class="i-mdi-heart-outline text-xl absolute top-0 right-0 "></span>
-			<div class="card-title">{{title}}</div>
+			<div class="card-title font-neucha">{{title}}</div>
 			<div class="card-content"> {{content}} </div>
 			<div class="card-weight">({{weight}} г)</div>
 		</div>
 
 		<div class="flex flex-col justify-between items-center">
-			<div class="card-price">Цена {{price}} ₽</div>
+			<div class="card-price font-neucha">Цена {{price}} ₽</div>
 			<div class="card-count flex gap-1 items-center py-2">
 				<button class="count-btn" @click="minusOne()">-</button>
-				<input class="w-[35px] text-center [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" 
+				<input class="w-[35px] font-neucha text-center [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" 
 					type="number" 
 					value="99"
 				>
 				<button class="count-btn" @click="pluseOne()">+</button>
 			</div>
-			<div class="card-price">Сумма {{price}} ₽</div>
+			<div class="card-price font-neucha">Сумма {{price}} ₽</div>
 		</div>	
 		
 		
@@ -39,19 +39,19 @@ export default {
 			type: Boolean
 		},
 	  title: {
-		type: Object,
+		type: String,
 		required: true
 	  },
 	  weight: {
-		type: Object,
+		type: Number,
 		required: true
 	  },
 	  content: {
-		type: Object,
+		type: String,
 		required: true
 	  },
 	  price: {
-		type: Object,
+		type: Number,
 		required: true
 	  },
 	},

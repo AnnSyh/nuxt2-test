@@ -85,14 +85,14 @@
 		<div class="w-[613px] bg-slide shadow-xl absolute right-0 h-screen p-8">
 			<button 
 				@click="OpenCloseBasket()"
-				class="absolute top-4 right-4 w-[32px] h-[32px] rounded-full flex justify-center items-center cursor-pointer transition duration-[0.33s] hover:bg-[#f5f5f5]"
+				class="absolute z-10 top-4 right-4 w-[32px] h-[32px] rounded-full flex justify-center items-center cursor-pointer transition duration-[0.33s] hover:bg-[#f5f5f5]"
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
 			</button>
 			<div class="basket-default-screen flex flex-col h-full">
 	
 				<div class="text-center text-5xl mb-8">
-					<span class="dot-before-after uppercase">корзина</span>
+					<span class="dot-before-after uppercase font-neucha">корзина</span>
 				</div>
 				<CardBasket
 					:title="'ролл лайт'" 
@@ -108,21 +108,21 @@
 				/>
 	
 				<div class="mt-auto max-w-[80%] border border-red-700">
-					<div class="text-xl flex gap-4">
+					<div class="text-xl flex gap-4 font-neucha">
 						<span>Общая сумма</span><span>16995 ₽</span>
 					</div>
 					<div class="text-base leading-none my-11">
 						Сумма заказа для доставки курьером должна составлять не менее 500 ₽
 					</div>
 					<div class="flex gap-8">
-						<button class="card-btn card-btn-active">Вернуться к покупкам</button>
-						<button class="card-btn" @click="Checkout()">Оформить заказ</button>
+						<button class="card-btn card-btn-active font-neucha">Вернуться к покупкам</button>
+						<button class="card-btn font-neucha" @click="Checkout()">Оформить заказ</button>
 					</div>
 				</div>
 			</div>
 			<div class="basket-form hidden">
 				<div class="text-center text-5xl mb-8">
-					<span class="dot-before-after uppercase">Оформление заказа</span>
+					<span class="dot-before-after uppercase font-neucha">Оформление заказа</span>
 				</div>
 				<FormBasket/>
 				
@@ -172,9 +172,7 @@ export default {
 .nav-target {
   display: none;
 }
-.bg-nav-color {
-	background-color: #062D4E;
-}
+
 .logo-top {
 	top: 27px 
 }
@@ -198,7 +196,6 @@ export default {
 
 		&::after {
 			content: '';
-			/* @apply absolute bg-white rounded-full; */
 			@apply absolute bg-white rounded-full;
 			top:calc(50% - 1.5px);
 			right: -14px;

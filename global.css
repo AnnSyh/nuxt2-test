@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: 'Neucha';
+    src: url('~/fonts/Neucha/Neucha-Regular.ttf') format('truetype');
+    font-weight: normal;
+  }
+
+
+.font-neucha {
+	font-family: 'Neucha';
+}
+
+.bg-nav-color {
+	background-color: #062D4E;
+}

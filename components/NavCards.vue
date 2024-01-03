@@ -1,5 +1,5 @@
 <template>
-	<div class="nav-cards-menu ">
+	<div class="nav-cards-menu font-neucha">
 		<router-link to="/"  
 					class="
 						text-nav-cards  px-4 py-2

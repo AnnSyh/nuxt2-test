@@ -3,7 +3,7 @@
 		<span class="i-mdi-heart text-3xl absolute top-4 right-4 bg-red-600"></span>
 		<img class="m-auto" src="../static/card-img.png" alt="">
 		<div class="flex justify-between items-center mt-8 mb-4">
-			<div class="card-title">{{title}}</div>
+			<div class="card-title font-neucha">{{title}}</div>
 			<div class="card-weight">{{weight}} г</div>
 		</div>
 		<div class="card-content mb-6">

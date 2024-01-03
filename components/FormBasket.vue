@@ -152,7 +152,7 @@
 					<div class="text-lg font-normal">450 ₽</div>
 				</div>
 			</div>
-			<button type="submit" class="form-btn">Купить и оплатить</button>
+			<button type="submit" class="form-btn font-neucha">Купить и оплатить</button>
 			<div class="text-xs font-light text-[#212121] mt-4">
 				Создавая заказ, вы соглашаетесь с <a href="#" class="text-[#185598]">политикой обработки персональных данных</a>
 			</div>
@@ -180,20 +180,20 @@ export default {
 			type: Boolean
 		},
 	  title: {
-		type: Object,
-		required: true
+		type: String,
+		// required: true
 	  },
 	  weight: {
-		type: Object,
-		required: true
+		type: Number,
+		// required: true
 	  },
 	  content: {
-		type: Object,
-		required: true
+		type: String,
+		// required: true
 	  },
 	  price: {
-		type: Object,
-		required: true
+		type: Number,
+		// required: true
 	  },
 	},
 	validations: {

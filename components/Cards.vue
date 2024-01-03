@@ -1,7 +1,7 @@
 <template>
 	<div class="">
 		<h1 class="text-center text-5xl mb-8">
-			<span class="dot-before-after uppercase">Меню</span>
+			<span class="dot-before-after uppercase font-neucha">Меню</span>
 		</h1>
 		<NavCards/>
 		<div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -10,7 +10,8 @@
 				:key="index" 
 				class="flex flex-col items-center p-6"
 			>
-				<Card 
+				<Card
+					:id="card.id" 
 					:title="card.title" 
 					:weight="card.weight" 
 					:content="card.content"
@@ -19,7 +20,7 @@
 				/>
 			</div>
 
-			<div v-for="(image, index) in photos" 
+			<!-- <div v-for="(image, index) in photos" 
 				:key="index" 
 				class="flex flex-col items-center p-6"
 			>
@@ -28,7 +29,7 @@
 						@click="showModalWindow(index)" 
 						class="cursor-pointer"
 				>
-			</div>
+			</div> -->
 		</div>
 
 		<Modal :image="selectedImage" :show="showModal" @close="closeModal" />
@@ -43,17 +44,17 @@ import NavCards from './NavCards.vue'
 export default {
 	name: 'NuxtTutorial',
 	components: {
-    Modal,
-    Card
-},
+		Modal,
+		Card
+	},
 	data() {
 		return {
 			photos:[],
 			cards:[
-				{id:1, title:'ролл ясай', weight:'185', content:'Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', price:'200'},
-				{id:2, title:'2-ролл ясай', weight:'222', content:'2-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', price:'222'},
-				{id:3, title:'3-ролл ясай', weight:'333', content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', price:'333'},
-				{id:4, active:true, title:'3-ролл ясай', weight:'333', content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', price:'333'},
+				{id:1, title:'ролл ясай', 	weight:185, content:'Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:200},
+				{id:2, title:'2-ролл ясай', weight:222, content:'2-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут',	price:222},
+				{id:3, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333},
+				{id:4, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333, active:true},
 			],
 			selectedImage: {},
 			showModal: false
@@ -79,7 +80,9 @@ export default {
 }
 </script>
 <style scoped>
+
 .dot-before-after {
+
 	@apply relative;
 
 	@screen lg {
