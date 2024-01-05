@@ -12,6 +12,9 @@ module.exports = {
 		},
 
 	},
+	colors: {
+		'nav-color': '#062D4E',
+	  },
 	plugins: [
 		iconsPlugin({
 		// Select the icon collections you want to use

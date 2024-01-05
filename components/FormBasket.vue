@@ -201,7 +201,7 @@ export default {
 			name: { required },
 			email: { required, email }
 		},
-  },
+  	},
 	methods: {
 		submitForm() {
 			this.$v.$touch();

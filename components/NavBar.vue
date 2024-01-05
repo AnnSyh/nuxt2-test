@@ -1,7 +1,7 @@
 <template>
 <div class="">
 
-	<nav class="bg-nav-color mb-8 lg:mb-24">
+	<nav class="bg-nav-color font-neucha mb-8 lg:mb-24">
 		<div class="container max-w-6xl m-auto flex items-center justify-between h-20">
 
 		<!-- <div class="flex items-center"> -->

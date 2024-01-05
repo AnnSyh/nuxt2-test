@@ -1,18 +1,23 @@
 <template>
-	<div class="bg-img">
-			<NavBar/>
-			<div class="container max-w-6xl m-auto">
-				<Cards/>
+	<div class="bg-img relative">
+		<div id="top-page"></div>
+		<NavBar/>
+		
+		<div class="container max-w-6xl m-auto">
+			<Cards/>
 		</div>
+		<TopArrow/>
 		<Footer></Footer>
 	</div>
 </template>
 
 <script>
 import "../global.css"
+import TopArrow from '../components/TopArrow'
 
 export default {
-	name: 'IndexPage'
+	name: 'IndexPage',
+	components: {TopArrow },
 }
 </script>
 <style scoped>

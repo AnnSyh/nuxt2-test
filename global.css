@@ -17,3 +17,7 @@
 .bg-nav-color {
 	background-color: #062D4E;
 }
+
+.scroll-button {
+    @apply absolute z-10 bottom-12 right-0;
+}
