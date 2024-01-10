@@ -94,29 +94,44 @@
 				<div class="text-center text-5xl mb-8">
 					<span class="dot-before-after uppercase font-neucha">корзина</span>
 				</div>
-				<CardBasket
-					:title="'ролл лайт'" 
-					:weight="190" 
-					:content="'Листья салата, огурец, перец, помидор, сырный соус, чипсы'"
-					:price="165"
-				/>
-				<CardBasket
-					:title="'ролл лайт'" 
-					:weight="190" 
-					:content="'Листья салата, огурец, перец, помидор, сырный соус, чипсы'"
-					:price="165"
-				/>
-	
-				<div class="mt-auto max-w-[80%] border border-red-700">
-					<div class="text-xl flex gap-4 font-neucha">
-						<span>Общая сумма</span><span>16995 ₽</span>
+
+				<div v-for="(card, index) in cards" :key="index">
+					<div class="card">
+						<img width="80" height="80" src="../static/card-img.png" alt="">
+						<div class="max-w-[210px] relative flex flex-col justify-between">
+							<span class="i-mdi-heart-outline text-xl absolute top-0 right-0 "></span>
+							<div class="card-title font-neucha">{{card.index}}</div>
+							<div class="card-title font-neucha">{{card.title}}</div>
+							<div class="card-content"> {{card.content}} </div>
+							<div class="card-weight">({{card.weight}} г)</div>
+						</div>
+						<div class="flex flex-col justify-between items-center">
+							<div class="card-price font-neucha">Цена {{card.price}} ₽</div>
+							<div class="card-count flex gap-1 items-center py-2">
+								<div class="card-count flex gap-1 items-center py-2">
+									<button class="count-btn" @click="DecrementCount(index)">-</button>
+									<span class="w-8 text-center">{{ card.count }}</span>
+									<button class="count-btn"  @click="IncrementCount(index)">+</button>
+								</div>
+							</div>
+							<div class="card-price font-neucha">Сумма {{card.price*card.count}} ₽</div>
+						</div>
+						<button class="btn-trash"  @click="delCard(index)">
+							<span class="i-mdi-trash"></span>
+						</button>
 					</div>
-					<div class="text-base leading-none my-11">
+				</div>
+	
+				<div class="mt-auto max-w-[80%]">
+					<div class="text-xl flex gap-4 font-neucha">
+						<span>Общая сумма</span><span class="text-2xl">{{cardTotalCost}} ₽</span>
+					</div>
+					<div class="text-star  font-ubuntu">
 						Сумма заказа для доставки курьером должна составлять не менее 500 ₽
 					</div>
 					<div class="flex gap-8">
-						<button class="card-btn card-btn-active font-neucha">Вернуться к покупкам</button>
-						<button class="card-btn font-neucha" @click="Checkout()">Оформить заказ</button>
+						<button class="card-btn card-btn-active font-neucha !px-8">Вернуться к покупкам</button>
+						<button class="card-btn font-neucha !px-8" @click="Checkout()">Оформить заказ</button>
 					</div>
 				</div>
 			</div>
@@ -135,17 +150,49 @@
 </template>
 
 <script>
-import CardBasket from './CardBasket';
 import FormBasket from './FormBasket';
 
 
 export default {
 	name: 'NavBar',
-	components: { CardBasket, FormBasket},
+	components: { 
+		FormBasket
+	},
+	props:{
+
+	},
 	data() {
 	  return {
 		model: false,
+		cards: [
+			{ id:0, title: "1-ролл лайт", price: 100, weight:190, content:'1-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 },
+			{ id:1, title: "2-ролл лайт", price: 200, weight:190, content:'2-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 },
+			{ id:2, title: "3-ролл лайт", price: 150, weight:190, content:'3-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 }
+		]
 	  }
+	},
+	computed: {
+		total() {
+			return this.cards.reduce((acc, product) => acc + product.price*product.count, 0);
+		},
+		cardTotalCost(){
+			let rezult=[]
+
+			if(this.cards.length){
+
+				for(let item of this.cards){
+					rezult.push(item.price * item.count)
+				}
+	
+				rezult = rezult.reduce(function(sum, el){
+					return sum + el;
+				})
+				return rezult
+			} else {
+				return 0
+			}
+		},
+	
 	},
 	methods: {
 		OpenCloseMenu() {
@@ -155,10 +202,38 @@ export default {
 			document.querySelector('.slide-over').classList.toggle('hidden')
 		},
 		Checkout() {
-			console.log('Checkout');
 			document.querySelector('.basket-default-screen').classList.toggle('hidden')
 			document.querySelector('.basket-form').classList.toggle('hidden')
-			// e.preventDefault();
+		},
+		IncrementCount(index) {
+			console.log('this.cards[index].count = ',this.cards[index].count );
+			this.cards[index].count++;
+		},
+		DecrementCount(index) {
+			console.log('this.cards[index].count = ',this.cards[index].count );
+			if (this.cards[index].count > 0) {
+				this.cards[index].count--;
+			}
+		},
+		delCard(index){
+			console.log('delCard this.cards[index].count = ',this.cards[index].count );
+			let rezult=[]
+
+			if(this.cards.length){
+
+				for(let item of this.cards){
+					rezult.push(item.price * item.count)
+				}
+
+				rezult = rezult.reduce(function(sum, el){
+					return sum + el;
+				})
+				return rezult
+			} else {
+			return 0
+			}
+
+
 		}
 	}
   }
@@ -166,6 +241,18 @@ export default {
 </script>
 
 <style scoped>
+
+.text-star {
+	@apply text-base leading-none my-8 leading-5 relative ml-4;
+	/* letter-spacing: 0.03rem; */
+
+	&::before {
+		content: '*';
+		position: absolute;
+		top: 0;
+		left:-1rem;
+	}
+}
 .bg-slide {
 	background: #EBE1D7;
 }
@@ -192,16 +279,13 @@ export default {
 .link-before {
 	@apply relative;
 
-	@screen lg {
-
-		&::after {
-			content: '';
-			@apply absolute bg-white rounded-full;
-			top:calc(50% - 1.5px);
-			right: -14px;
-			width:3px;
-			height: 3px;
-		}
+	&::after {
+		content: '';
+		@apply absolute bg-white rounded-full;
+		top:calc(50% - 1.5px);
+		right: -14px;
+		width:3px;
+		height: 3px;
 	}
  }
  .dot-before-after {
@@ -213,7 +297,8 @@ export default {
 		&::before {
 			content: '.';
 			@apply absolute;
-			top: 0;
+			top: -82%;
+    		font-size: 100px;
 
 		}
 		&::after {
@@ -241,4 +326,41 @@ export default {
 		font-size: 18px;
 	}
 }
+
+.card {
+	@apply flex gap-4 items-start relative p-3 bg-white border border-gray-200 rounded-lg m-1 overflow-hidden justify-around pr-20;
+	box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+
+
+	&-title {
+		@apply uppercase text-base;
+		color:#141414;
+	}
+	&-weight {
+		font-size:13px;
+		color:#808080;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	&-price {
+		font-size:13px;
+		font-weight: 400;
+		color:#141414;
+	}
+	&-content {
+		font-size: 13px;
+		color:#808080;
+	}
+
+
+	.btn-trash {
+		@apply absolute right-[-25px] p-[25px] flex rounded-full bg-yellow-800;
+		top: calc(50% - 31px);
+
+		span {
+			@apply relative left-[-8px] text-white;
+		}
+
+	}
+
+ }
 </style>

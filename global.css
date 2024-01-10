@@ -2,16 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+body,
+body > div,
+body > div > div {
+    @apply min-h-full; 
+}
+
 
 @font-face {
     font-family: 'Neucha';
     src: url('~/fonts/Neucha/Neucha-Regular.ttf') format('truetype');
     font-weight: normal;
   }
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('~/fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
+    font-weight: normal;
+  }
 
 
 .font-neucha {
 	font-family: 'Neucha';
+}
+.font-ubuntu {
+	font-family: 'Ubuntu';
 }
 
 .bg-nav-color {
@@ -20,4 +34,9 @@
 
 .scroll-button {
     @apply absolute z-10 bottom-12 right-0;
+}
+
+.scroll-container {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }

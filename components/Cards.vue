@@ -85,21 +85,20 @@ export default {
 
 	@apply relative;
 
-	@screen lg {
 
-		&::after,
-		&::before {
-			content: '.';
-			@apply absolute;
-			top: 0;
+	&::after,
+	&::before {
+		content: '.';
+		@apply absolute;
+		top: -82%;
+    	font-size: 100px;
 
-		}
-		&::after {
-			right: -24px;
-		}
-		&::before {
-			left: -24px;
-		}
+	}
+	&::after {
+		right: -24px;
+	}
+	&::before {
+		left: -24px;
 	}
  }
 </style>

@@ -11,7 +11,10 @@
 		</div>
 		<div class="flex justify-between items-center">
 			<div class="card-price">{{price}} ₽</div>
-			<button class="card-btn">В корзину</button>
+			<!-- @click="addToCard" -->
+			<button 
+				class="card-btn font-neucha" 
+			>В корзину</button>
 		</div>				
 	</a>
 </template>
@@ -36,6 +39,11 @@ export default {
 	  price: {
 		type: Number
 	  },
+	},
+	methods:{
+		// addToCard(){
+		// 	this.$emit(event:'addToCard',this.product_data);
+		// }
 	}
 }
 </script>

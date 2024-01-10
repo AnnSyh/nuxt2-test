@@ -1,5 +1,5 @@
-<template>
-	<div class="bg-img relative">
+<template classs="h-full">
+	<div class="bg-img relative h-full flex flex-col">
 		<div id="top-page"></div>
 		<NavBar/>
 		
