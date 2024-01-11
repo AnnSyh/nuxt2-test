@@ -3,6 +3,7 @@
 		<span class="i-mdi-heart text-3xl absolute top-4 right-4 bg-red-600"></span>
 		<img class="m-auto" src="../static/card-img.png" alt="">
 		<div class="flex justify-between items-center mt-8 mb-4">
+			<!-- <div class="card-title font-neucha">{{id}}</div> -->
 			<div class="card-title font-neucha">{{title}}</div>
 			<div class="card-weight">{{weight}} г</div>
 		</div>
@@ -11,10 +12,12 @@
 		</div>
 		<div class="flex justify-between items-center">
 			<div class="card-price">{{price}} ₽</div>
-			<!-- @click="addToCard" -->
 			<button 
+				@click.prevent="addToCard"
 				class="card-btn font-neucha" 
-			>В корзину</button>
+			>
+				В корзину
+			</button>
 		</div>				
 	</a>
 </template>
@@ -24,26 +27,37 @@
 export default {
 	name: 'Card',
 	props: {
+		id: {
+			type: Number
+		},
+		count: {
+			type: Number
+		},
 		active: {
 			type: Boolean
 		},
-	  title: {
-		type: String
-	  },
-	  weight: {
-		type: Number
-	  },
-	  content: {
-		type: String
-	  },
-	  price: {
-		type: Number
-	  },
+		title: {
+			type: String
+		},
+		weight: {
+			type: Number
+		},
+		content: {
+			type: String
+		},
+		price: {
+			type: Number
+		},
+		totalPrice: {
+			type: Number,
+			required: true
+		},
 	},
 	methods:{
-		// addToCard(){
-		// 	this.$emit(event:'addToCard',this.product_data);
-		// }
+		addToCard(){
+			// console.log('addToCard  this._props= ',this._props);
+			this.$emit('addToCard',this._props);
+		}
 	}
 }
 </script>

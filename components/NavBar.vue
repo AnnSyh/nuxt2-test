@@ -95,42 +95,36 @@
 					<span class="dot-before-after uppercase font-neucha">корзина</span>
 				</div>
 
-				<div v-for="(card, index) in cards" :key="index">
-					<div class="card">
-						<img width="80" height="80" src="../static/card-img.png" alt="">
-						<div class="max-w-[210px] relative flex flex-col justify-between">
-							<span class="i-mdi-heart-outline text-xl absolute top-0 right-0 "></span>
-							<div class="card-title font-neucha">{{card.index}}</div>
-							<div class="card-title font-neucha">{{card.title}}</div>
-							<div class="card-content"> {{card.content}} </div>
-							<div class="card-weight">({{card.weight}} г)</div>
-						</div>
-						<div class="flex flex-col justify-between items-center">
-							<div class="card-price font-neucha">Цена {{card.price}} ₽</div>
-							<div class="card-count flex gap-1 items-center py-2">
-								<div class="card-count flex gap-1 items-center py-2">
-									<button class="count-btn" @click="DecrementCount(index)">-</button>
-									<span class="w-8 text-center">{{ card.count }}</span>
-									<button class="count-btn"  @click="IncrementCount(index)">+</button>
-								</div>
-							</div>
-							<div class="card-price font-neucha">Сумма {{card.price*card.count}} ₽</div>
-						</div>
-						<button class="btn-trash"  @click="delCard(index)">
-							<span class="i-mdi-trash"></span>
-						</button>
+				<div v-if="this.$store.getters.Cards.length" class="cards-block">
+					<div v-for="(card, index) in allCards" :key="card.id">
+						<CardBasket
+							:id="card.id"
+							:count="card.count"
+							:title="card.title" 
+							:weight="card.weight" 
+							:content="card.content"
+							:price="card.price"
+							@delFromCard="delFromCard(index)"
+							@calculateTotalCard="calculateTotalCard(index)"
+						/>
 					</div>
+				</div>
+				<div v-else class="text-xl font-neucha">
+					 Пока в корзине товаров нет
+					 Добавте товары
+					 У каждого товара есть кнопка 'добавить в корзину'
 				</div>
 	
 				<div class="mt-auto max-w-[80%]">
 					<div class="text-xl flex gap-4 font-neucha">
-						<span>Общая сумма</span><span class="text-2xl">{{cardTotalCost}} ₽</span>
+						<span>Общая сумма</span>
+						<span class="text-2xl">{{cardTotalCost}} ₽</span>
 					</div>
 					<div class="text-star  font-ubuntu">
 						Сумма заказа для доставки курьером должна составлять не менее 500 ₽
 					</div>
 					<div class="flex gap-8">
-						<button class="card-btn card-btn-active font-neucha !px-8">Вернуться к покупкам</button>
+						<button class="card-btn card-btn-active font-neucha !px-8" @click="OpenCloseBasket()">Вернуться к покупкам</button>
 						<button class="card-btn font-neucha !px-8" @click="Checkout()">Оформить заказ</button>
 					</div>
 				</div>
@@ -150,13 +144,16 @@
 </template>
 
 <script>
-import FormBasket from './FormBasket';
+import FormBasket from './FormBasket'
+import CardBasket from './CardBasket'
+import {mapGetters, mapActions} from 'vuex'
 
 
 export default {
 	name: 'NavBar',
 	components: { 
-		FormBasket
+		FormBasket,
+		CardBasket
 	},
 	props:{
 
@@ -164,23 +161,25 @@ export default {
 	data() {
 	  return {
 		model: false,
-		cards: [
-			{ id:0, title: "1-ролл лайт", price: 100, weight:190, content:'1-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 },
-			{ id:1, title: "2-ролл лайт", price: 200, weight:190, content:'2-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 },
-			{ id:2, title: "3-ролл лайт", price: 150, weight:190, content:'3-Листья салата, огурец, перец, помидор, сырный соус, чипсы', count: 1 }
-		]
 	  }
 	},
 	computed: {
+		...mapGetters([
+			'CARDS',
+		]),
+		allCards() {
+     	 return this.$store.getters.Cards
+		},
 		total() {
 			return this.cards.reduce((acc, product) => acc + product.price*product.count, 0);
 		},
 		cardTotalCost(){
 			let rezult=[]
 
-			if(this.cards.length){
+			// this.$store.getters.Cards.length
+			if(this.$store.getters.Cards.length){
 
-				for(let item of this.cards){
+				for(let item of this.$store.getters.Cards){
 					rezult.push(item.price * item.count)
 				}
 	
@@ -195,6 +194,10 @@ export default {
 	
 	},
 	methods: {
+		...mapActions([
+			'DEL_FROM_CARD',
+			'CALC_TOTAL_CARD',
+		]),
 		OpenCloseMenu() {
 			document.querySelector('.top-navbar').classList.toggle('hidden')
 		},
@@ -205,35 +208,14 @@ export default {
 			document.querySelector('.basket-default-screen').classList.toggle('hidden')
 			document.querySelector('.basket-form').classList.toggle('hidden')
 		},
-		IncrementCount(index) {
-			console.log('this.cards[index].count = ',this.cards[index].count );
-			this.cards[index].count++;
+
+		delFromCard(index){
+			// console.log('delFromCard index = ',index );
+			this.DEL_FROM_CARD(index)
 		},
-		DecrementCount(index) {
-			console.log('this.cards[index].count = ',this.cards[index].count );
-			if (this.cards[index].count > 0) {
-				this.cards[index].count--;
-			}
-		},
-		delCard(index){
-			console.log('delCard this.cards[index].count = ',this.cards[index].count );
-			let rezult=[]
-
-			if(this.cards.length){
-
-				for(let item of this.cards){
-					rezult.push(item.price * item.count)
-				}
-
-				rezult = rezult.reduce(function(sum, el){
-					return sum + el;
-				})
-				return rezult
-			} else {
-			return 0
-			}
-
-
+		calculateTotalCard(index){
+			// console.log('delFromCard index = ',index );
+			this.CALC_TOTAL_CARD(index)
 		}
 	}
   }
@@ -241,7 +223,12 @@ export default {
 </script>
 
 <style scoped>
-
+.cards-block {
+	/* max-height: 530px; */
+	max-height: calc(100vh - 381px);
+	overflow-y: auto;
+	@apply p-4;
+}
 .text-star {
 	@apply text-base leading-none my-8 leading-5 relative ml-4;
 	/* letter-spacing: 0.03rem; */
