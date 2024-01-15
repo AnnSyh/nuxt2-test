@@ -16,7 +16,7 @@
 					<button class="count-btn"  @click="IncrementCount()">+</button>
 				</div>
 			</div>
-			<div class="card-price font-neucha">Сумма {{ calculateTotalCard() }} ₽</div>
+			<div class="card-price font-neucha">Сумма {{totalPrice}} ₽</div>
 		</div>
 		<button class="btn-trash"  @click="delFromCard">
 			<span class="i-mdi-trash"></span>
@@ -56,28 +56,26 @@ export default {
 		},
 		totalPrice: {
 			type: Number,
-			required: true
 		},
+	},
+	data() {
+		return {
+			localCount: this.count
+		}
 	},
 	methods: {
 		IncrementCount() {
-			// console.log('this.cards[index].count = ',this.count );
-			this.count++;
+			this.$emit('IncrementCount')
+			this.$emit('update:count', this.localCount);
 		},
 		DecrementCount() {
-			// console.log('this.cards[index].count = ',this.count );
-			if (this.count > 0) {
-				this.count--;
-			}
+			this.$emit('DecrementCount')
+			this.$emit('update:count', this.localCount);
 		},
 		delFromCard(){
-			// this.$emit('addToCard',this._props);
 			this.$emit('delFromCard')
 		}, 
 		calculateTotalCard() {
-			// console.log('calculateTotal this = ', this);
-			// return this.count*this.price
-
 			this.$emit('calculateTotalCard')
 		}
 	}

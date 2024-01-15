@@ -1,9 +1,7 @@
 <!-- Please remove this file from your project -->
 <template>
-	<div class="">
-		<div class="relative flex items-top justify-center min-h-footer bg-nav-color footer-before sm:items-center sm:pt-0">
-			
-		</div>
+	<div class="relative flex items-top justify-center min-h-footer bg-nav-color footer-before sm:items-center sm:pt-0">
+		
 	</div>
 </template>
 

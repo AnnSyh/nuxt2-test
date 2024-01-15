@@ -1,5 +1,5 @@
 <template classs="h-full">
-	<div class="bg-img relative h-full flex flex-col">
+	<div class="bg-img relative h-full flex flex-col min-h-screen">
 		<div id="top-page"></div>
 		<NavBar/>
 		

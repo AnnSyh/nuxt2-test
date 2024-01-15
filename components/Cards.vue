@@ -18,6 +18,7 @@
 					:content="card.content"
 					:price="card.price"
 					:active="card.active"
+					:totalPrice="card.totalPrice"
 					@addToCard="addToCard"
 				/>
 			</div>
@@ -54,10 +55,10 @@ export default {
 		return {
 			photos:[],
 			cards:[
-				{id:1, title:'ролл ясай', 	weight:185, content:'Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:200, count:1, totalPrice:200 },
-				{id:2, title:'2-ролл ясай', weight:222, content:'2-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут',	price:222, count:1, totalPrice:222 },
-				{id:3, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333, count:1, totalPrice:333 },
-				{id:4, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333, count:1, totalPrice:333 , active:true},
+				{id:0, title:'ролл ясай', 	weight:185, content:'Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:200, count:1, totalPrice:200 },
+				{id:1, title:'2-ролл ясай', weight:222, content:'2-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут',	price:222, count:1, totalPrice:222 },
+				{id:2, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333, count:1, totalPrice:333 },
+				{id:3, title:'3-ролл ясай', weight:333, content:'3-Огурец, авокадо, помидор, болгарский перец, листья салата, кунжут', 	price:333, count:1, totalPrice:333 , active:true},
 			],
 			selectedImage: {},
 			showModal: false
@@ -71,7 +72,7 @@ export default {
 			'ADD_TO_CARD'
 		]),
 		addToCard(data){
-			console.log('addToCard: data = ', data);
+			// console.log('addToCard: data = ', data);
 			this.ADD_TO_CARD(data)
 		},
 		async fetchTodo() {

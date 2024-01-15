@@ -50,13 +50,24 @@ export default {
 		},
 		totalPrice: {
 			type: Number,
-			required: true
 		},
+	},
+	data() {
+		return {
+			localCount: 0
+		}
 	},
 	methods:{
 		addToCard(){
-			// console.log('addToCard  this._props= ',this._props);
+			this.localCount++;
+
+			console.log('this._props.count = ', this._props.count);
+			console.log('this.localCount = ', this.localCount );
+
+			// this._props.count = (this.localCount - 1)
+
 			this.$emit('addToCard',this._props);
+			// this.$emit('addToCard', this.localCount);
 		}
 	}
 }

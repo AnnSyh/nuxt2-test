@@ -16,6 +16,13 @@ export default {
         CALC_TOTAL_CARD({commit},index){
             commit('ADD_TOTAL_PRICE',index)
         },
+        INC_COUNT({commit},index){            
+            commit('COUNT_PLUS_ONE',index)
+        },
+        DECR_COUNT({commit},index){            
+            commit('COUNT_MINUS_ONE',index)
+        },
+       
 	},
 	mutations: {
 		updateCards(state, cards){
@@ -47,8 +54,22 @@ export default {
             state.cards.splice(index, 1)
         },
         ADD_TOTAL_PRICE(state, index){
-            console.log('index = ', index);
-            // state.cards.splice(index, 1)
+            state.cards[index].totalPrice = state.cards[index].count*state.cards[index].price
+        },
+        COUNT_PLUS_ONE(state, index){
+            // this.count++;
+            state.cards[index].count++ 
+            state.cards[index].totalPrice = state.cards[index].count*state.cards[index].price
+        },
+        COUNT_MINUS_ONE(state, index){
+			// if (this.count > 0) {
+			// 	this.count--;
+			// 	this.totalPrice = this.price*this.count
+			// }
+            if (state.cards[index].count > 0){
+                state.cards[index].count-- 
+                state.cards[index].totalPrice = state.cards[index].count*state.cards[index].price
+            }
         },
 	},
 	state: {

@@ -85,7 +85,7 @@
 		<div class="w-[613px] bg-slide shadow-xl absolute right-0 h-screen p-8">
 			<button 
 				@click="OpenCloseBasket()"
-				class="absolute z-10 top-4 right-4 w-[32px] h-[32px] rounded-full flex justify-center items-center cursor-pointer transition duration-[0.33s] hover:bg-[#f5f5f5]"
+				class="absolute z-1 top-4 right-4 w-[32px] h-[32px] rounded-full flex justify-center items-center cursor-pointer transition duration-[0.33s] hover:bg-[#f5f5f5]"
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
 			</button>
@@ -104,8 +104,10 @@
 							:weight="card.weight" 
 							:content="card.content"
 							:price="card.price"
+							:totalPrice="card.totalPrice"
 							@delFromCard="delFromCard(index)"
-							@calculateTotalCard="calculateTotalCard(index)"
+							@IncrementCount="IncrementCount(index)"
+							@DecrementCount="DecrementCount(index)"
 						/>
 					</div>
 				</div>
@@ -133,7 +135,7 @@
 				<div class="text-center text-5xl mb-8">
 					<span class="dot-before-after uppercase font-neucha">Оформление заказа</span>
 				</div>
-				<FormBasket/>
+				<FormBasket :totalCost="cardTotalCost"/>
 				
 			</div>
 		</div>
@@ -161,6 +163,7 @@ export default {
 	data() {
 	  return {
 		model: false,
+		localCount: this.count
 	  }
 	},
 	computed: {
@@ -170,17 +173,15 @@ export default {
 		allCards() {
      	 return this.$store.getters.Cards
 		},
-		total() {
-			return this.cards.reduce((acc, product) => acc + product.price*product.count, 0);
-		},
 		cardTotalCost(){
 			let rezult=[]
-
 			// this.$store.getters.Cards.length
+			console.log(' this.$store.getters.Cards = ',this.$store.getters.Cards);
 			if(this.$store.getters.Cards.length){
 
 				for(let item of this.$store.getters.Cards){
-					rezult.push(item.price * item.count)
+					// rezult.push(item.price * item.count)
+					rezult.push(item.totalPrice)
 				}
 	
 				rezult = rezult.reduce(function(sum, el){
@@ -197,6 +198,8 @@ export default {
 		...mapActions([
 			'DEL_FROM_CARD',
 			'CALC_TOTAL_CARD',
+			'INC_COUNT',
+			'DECR_COUNT'
 		]),
 		OpenCloseMenu() {
 			document.querySelector('.top-navbar').classList.toggle('hidden')
@@ -216,7 +219,15 @@ export default {
 		calculateTotalCard(index){
 			// console.log('delFromCard index = ',index );
 			this.CALC_TOTAL_CARD(index)
-		}
+		},
+		IncrementCount(index){
+			// console.log('IncrementCount index = ',index );
+			this.INC_COUNT(index)
+		},
+		DecrementCount(index){
+			// console.log('IncrementCount index = ',index );
+			this.DECR_COUNT(index)
+		},
 	}
   }
 	
