@@ -82,7 +82,7 @@
 
 	  <!-- Slide-over -->
 	<div class="slide-over hidden fixed inset-0 bg-[rgba(0,0,0,0.3)] backdrop-blur-sm z-10">
-		<div class="w-[613px] bg-slide shadow-xl absolute right-0 h-screen p-8">
+		<div class="w-full md:w-[613px] bg-slide shadow-xl absolute right-0 h-screen p-4 sm:p-8">
 			<button 
 				@click="OpenCloseBasket()"
 				class="absolute z-1 top-4 right-4 w-[32px] h-[32px] rounded-full flex justify-center items-center cursor-pointer transition duration-[0.33s] hover:bg-[#f5f5f5]"
@@ -125,17 +125,27 @@
 					<div class="text-star  font-ubuntu">
 						Сумма заказа для доставки курьером должна составлять не менее 500 ₽
 					</div>
-					<div class="flex gap-8">
-						<button class="card-btn card-btn-active font-neucha !px-8" @click="OpenCloseBasket()">Вернуться к покупкам</button>
-						<button class="card-btn font-neucha !px-8" @click="Checkout()">Оформить заказ</button>
+					<div class="flex flex-wrap gap-8">
+						<button class="card-btn card-btn-active font-neucha !px-8" 
+							@click="OpenCloseBasket()"
+						>
+							Вернуться к покупкам
+						</button>
+						<!-- :disabled="formValid" -->
+						<button class="card-btn font-neucha !px-8 disabled:opacity-30" 
+							@click="Checkout()" 
+							:disabled="cardTotalCost ? false : true"
+						>
+							Оформить заказ
+						</button>
 					</div>
 				</div>
 			</div>
 			<div class="basket-form hidden">
 				<div class="text-center text-5xl mb-8">
-					<span class="dot-before-after uppercase font-neucha">Оформление заказа</span>
+					<span class="dot-before-after text-3xl font-neucha">Оформление заказа</span>
 				</div>
-				<FormBasket :totalCost="cardTotalCost"/>
+				<FormBasket :totalCost="cardTotalCost" @backToBucket="backToBucket"/>
 				
 			</div>
 		</div>
@@ -203,9 +213,12 @@ export default {
 		]),
 		OpenCloseMenu() {
 			document.querySelector('.top-navbar').classList.toggle('hidden')
+			document.getElementsByTagName('html')[0].classList.toggle('!overflow-y-hidden')
 		},
 		OpenCloseBasket() {
 			document.querySelector('.slide-over').classList.toggle('hidden')
+			// console.log(' html = ', document.getElementsByTagName('html')[0].classList.toggle('!overflow-y-hidden'))
+			document.getElementsByTagName('html')[0].classList.toggle('!overflow-y-hidden')
 		},
 		Checkout() {
 			document.querySelector('.basket-default-screen').classList.toggle('hidden')
@@ -228,6 +241,10 @@ export default {
 			// console.log('IncrementCount index = ',index );
 			this.DECR_COUNT(index)
 		},
+		backToBucket(){
+			document.querySelector('.basket-form').classList.add('hidden')
+			document.querySelector('.basket-default-screen').classList.remove('hidden')
+		}
 	}
   }
 	
@@ -326,7 +343,7 @@ export default {
 }
 
 .card {
-	@apply flex gap-4 items-start relative p-3 bg-white border border-gray-200 rounded-lg m-1 overflow-hidden justify-around pr-20;
+	@apply flex flex-col sm:flex-row  gap-4 items-start relative p-3 bg-white border border-gray-200 rounded-lg m-1 overflow-hidden justify-around pr-20;
 	box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
 
 

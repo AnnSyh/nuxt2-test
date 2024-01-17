@@ -1,13 +1,13 @@
 <template>
 	<div>
-		<form @submit.prevent="submitForm">
+		<form @submit.prevent="submitForm" class="cards-block">
 	
 			<div class="card">
 				<div class="flex gap-4">
-					<div class="flex items-center justify-center rounded-full text-white bg-red-700 w-[32px] h-[32px];">1</div>
+					<div class="flex items-center justify-center rounded-full text-white bg-red-700 w-8 h-8 max-h-8">1</div>
 					<div class="form-title">Способ доставки</div>
 				</div>
-				<div class="pl-12">
+				<div class="pt-12 sm:pt-0 sm:pl-12">
 					<div class="grid-container mb-4">
 						<input disabled id="default-radio-1" type="radio" value="" name="default-radio" class="focus:outline-none hover:outline-none active:outline-none w-8 h-8 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 						<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,10 +49,10 @@
 	
 			<div class="card">
 				<div class="flex gap-4 pb-10">
-					<div class="flex items-center justify-center rounded-full text-white bg-red-700 w-[32px] h-[32px];">2</div>
+					<div class="flex items-center justify-center rounded-full text-white bg-red-700 w-8 h-8 max-h-8">2</div>
 					<div class="form-title">Данные для доставки</div>
 				</div>
-				<div class="pl-12 pr-20 pb-8 flex flex-col gap-14">
+				<div class="sm:pl-12 sm:pr-20 pb-8 flex flex-col gap-14">
 					<div>
 						<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
 							<svg class="absolute pointer-events-none" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,20 +77,45 @@
 						</div>
 						<div v-if="$v.form.name.$error" class="text-xs text-[#FF0000]">Это обязательное поле и должно содержать минимум 3 символа</div>
 					</div>
-					<div>
+					<!-- <div>
 						<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
 							<svg class="absolute pointer-events-none"  width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M16.5557 11.8149C15.4537 11.8149 14.3716 11.6426 13.3462 11.3037C12.8438 11.1323 12.2261 11.2896 11.9194 11.6045L9.8955 13.1324C7.54833 11.8794 6.10252 10.4341 4.8667 8.10455L6.34959 6.13336C6.73486 5.74861 6.87305 5.18658 6.70748 4.65923C6.36717 3.62845 6.1943 2.54691 6.1943 1.44441C6.19434 0.647953 5.54639 0 4.74998 0H1.44436C0.647953 0 0 0.647953 0 1.44436C0 10.5733 7.42678 18 16.5557 18C17.3521 18 18 17.352 18 16.5556V13.2593C18 12.4629 17.352 11.8149 16.5557 11.8149Z" fill="#474747"/>
 							</svg>
 							<input
 								id="phone"
-								placeholder="Телефон"
+								placeholder="Телефон # (###) ###-##-##"
 								class="focus:outline-none hover:outline-none active:outline-none w-full pl-10 border-b border-[#D9D9D9] focuse:border-none" 
 								v-model="form.phone"
+								v-mask="'# (###) ###-##-##'"
 								type="text"
 							>
 						</div>
 						<div v-if="$v.form.phone.$error" class="text-xs text-[#FF0000]">Это обязательное поле и должно содержать цифры</div>
+					</div> -->
+
+					<div>
+						<svg class="absolute pointer-events-none"  width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M16.5557 11.8149C15.4537 11.8149 14.3716 11.6426 13.3462 11.3037C12.8438 11.1323 12.2261 11.2896 11.9194 11.6045L9.8955 13.1324C7.54833 11.8794 6.10252 10.4341 4.8667 8.10455L6.34959 6.13336C6.73486 5.74861 6.87305 5.18658 6.70748 4.65923C6.36717 3.62845 6.1943 2.54691 6.1943 1.44441C6.19434 0.647953 5.54639 0 4.74998 0H1.44436C0.647953 0 0 0.647953 0 1.44436C0 10.5733 7.42678 18 16.5557 18C17.3521 18 18 17.352 18 16.5556V13.2593C18 12.4629 17.352 11.8149 16.5557 11.8149Z" fill="#474747"/>
+						</svg>
+						<div class="flex pl-10 focus:outline-none hover:outline-none active:outline-none w-full  border-b border-[#D9D9D9]">
+							<div>
+								<select id="country" v-model="form.selectedCountry">
+									<option value="US">США</option>
+									<option value="RU">РФ</option>
+								</select>
+							</div>
+							<div class="flex">
+								<span>{{ getCountryCode(form.selectedCountry) }}</span>
+								<input id="phone" 
+									v-model="form.phone" 
+									v-mask="getPhoneMask(form.selectedCountry)" 
+									class="focus:outline-none hover:outline-none active:outline-none"
+								>
+							</div>
+						</div>
+						<div v-if="$v.form.phone.maxLength" class="text-xs text-[#FF0000]">Номер телефона должен быть длиной не менее 10 символов</div>
+						<div v-if="$v.form.phone.$error" class="text-xs text-[#FF0000]">Это обязательное поле и должно содержать не менее 10 символов</div>
 					</div>
 		
 					<div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
@@ -120,7 +145,7 @@
 			</div>
 	
 			<div class="card">
-				<div class="pl-12 pr-20 pb-8 pt-4">
+				<div class="sm:pl-12 sm:pr-20 pb-8 pt-4">
 					<div class="flex gap-4 border-b pb-4 border-gray-300 mb-4">
 						<div class="text-lg">Cтоимость товаров</div>
 						<div class="text-lg font-normal"> {{totalCost}} ₽</div>
@@ -129,8 +154,14 @@
 						<div class="text-lg">Итого к оплате</div>
 						<div class="text-lg font-normal"> {{totalCost}} ₽</div>
 					</div>
+					<a href="#" class="text-[#185598]" @click="$emit('backToBucket')">
+						вернуться в корзину
+					</a>
 				</div>
-				<button type="submit" class="form-btn font-neucha">Купить и оплатить</button>
+				<button type="submit" 
+					class="form-btn font-neucha disabled:opacity-80" 
+					:disabled="formValid"
+				>Купить и оплатить</button>
 				<div class="text-xs font-light text-[#212121] mt-4">
 					Создавая заказ, вы соглашаетесь с 
 					<a href="#" class="text-[#185598]" @click="showModalWindow()" >
@@ -141,7 +172,11 @@
 	
 		</form>
 
+		
+
+
 		<Modal :show="showModal" @close="closeModal" />
+		<ModalSuccess :show="showModalSuccess" @close="closeModalSuccess" />
 
 	</div>
 
@@ -149,22 +184,28 @@
 
 <script>
 import { validationMixin } from '../plugins/vuelidate'
-import { required, email, minLength, numeric } from "vuelidate/lib/validators";
+import { required, minLength, numeric } from "vuelidate/lib/validators"
 import Modal from '@/components/ModalWindow.vue'
+import ModalSuccess from '@/components/ModalSuccess.vue'
+import {TheMask} from 'vue-the-mask'
 
 export default {
 	name: 'FormBasket',
 	components: {
-		Modal
+		Modal, 
+		ModalSuccess,
+		TheMask
 	},
 	mixins: [validationMixin],
 	data() {
 		return {
 			form: {
 				name: '',
+				selectedCountry: 'RU',
 				phone: '',
 			},
-			showModal: false
+			showModal: false,
+			showModalSuccess: false,
 		}
 	},
 	props: {
@@ -197,18 +238,47 @@ export default {
 			},
 			phone: { 
 				required,
-				numeric
+				minLength: minLength(13)
 			}
 		},
   	},
+	computed: {
+		formValid() {
+			console.log('this.$v.$invalid = ',this.$v.$invalid)
+			return this.$v.$invalid
+		}
+	},
 	methods: {
+		getCountryCode(country) {
+			if (country === 'US') {
+				return '+1';
+			} else if (country === 'RU') {
+				return '+7';
+			} 
+			else {
+				// Другие страны
+				return '+--';
+			}
+			},
+			getPhoneMask(country) {
+			if (country === 'US') {
+				return '(###) ###-####';
+			} else if (country === 'RU') {
+				return '(###) ###-##-##';
+			} else {
+				// Другие страны
+				return '###-###-####';
+			}
+			},
+
 		submitForm() {
 			this.$v.$touch();
 			console.log('submitForm this.$v.$invalid = ', this.$v.$invalid);
 			if (!this.$v.$invalid) {
-				console.log('успешная валидация формы!!!')
+				// console.log('успешная валидация формы!!!')
 				// Здесь вы можете выполнить действия при успешной валидации формы
 				// например, отправка формы на сервер
+				this.showModalSuccess = true;
 			} else {
 				console.log('форма не прошла валидацию')
 			}
@@ -219,11 +289,19 @@ export default {
 		},
 		closeModal() {
 			this.showModal = false;
-		}
+		},
+		closeModalSuccess() {
+			this.showModalSuccess = false;
+		},
+
 	}
 }
 </script>
 <style scoped>
+.cards-block {
+	max-height: calc(100vh - 103px);
+	@apply overflow-y-auto;
+}
 input:checked {
 	background-color: #0ACF83;
 	background-image: url('../static/icon-check-mark.svg');
@@ -240,8 +318,14 @@ input:checked {
 }
 .grid-container {
 	display: grid;
-	grid-template-columns: 50px 50px 44% 40%;
+	grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
 	align-items:center;
+
+	@screen md {
+		grid-template-columns: 50px 50px 44% 40%;
+		grid-template-rows: repeat(1,1fr);
+	}
 }
 .form-title {
 	font-size: 22px;
