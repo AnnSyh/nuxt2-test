@@ -186,7 +186,7 @@ export default {
 		cardTotalCost(){
 			let rezult=[]
 			// this.$store.getters.Cards.length
-			console.log(' this.$store.getters.Cards = ',this.$store.getters.Cards);
+			// console.log(' this.$store.getters.Cards = ',this.$store.getters.Cards);
 			if(this.$store.getters.Cards.length){
 
 				for(let item of this.$store.getters.Cards){
@@ -343,7 +343,7 @@ export default {
 }
 
 .card {
-	@apply flex flex-col sm:flex-row  gap-4 items-start relative p-3 bg-white border border-gray-200 rounded-lg m-1 overflow-hidden justify-around pr-20;
+	@apply flex flex-col sm:flex-row  gap-4 items-start relative pt-3 pl-3 pb-3 bg-white border border-gray-200 rounded-lg m-1 overflow-hidden justify-around pr-20;
 	box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
 
 

@@ -61,8 +61,8 @@ export default {
 		addToCard(){
 			this.localCount++;
 
-			console.log('this._props.count = ', this._props.count);
-			console.log('this.localCount = ', this.localCount );
+			// console.log('this._props.count = ', this._props.count);
+			// console.log('this.localCount = ', this.localCount );
 
 			// this._props.count = (this.localCount - 1)
 

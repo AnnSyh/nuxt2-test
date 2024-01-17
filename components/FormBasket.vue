@@ -244,7 +244,7 @@ export default {
   	},
 	computed: {
 		formValid() {
-			console.log('this.$v.$invalid = ',this.$v.$invalid)
+			// console.log('this.$v.$invalid = ',this.$v.$invalid)
 			return this.$v.$invalid
 		}
 	},
@@ -273,7 +273,7 @@ export default {
 
 		submitForm() {
 			this.$v.$touch();
-			console.log('submitForm this.$v.$invalid = ', this.$v.$invalid);
+			// console.log('submitForm this.$v.$invalid = ', this.$v.$invalid);
 			if (!this.$v.$invalid) {
 				// console.log('успешная валидация формы!!!')
 				// Здесь вы можете выполнить действия при успешной валидации формы
@@ -339,7 +339,7 @@ input:checked {
 	font-size: 15px;
 }
  .card {
-	@apply relative p-3 bg-white border border-gray-200 rounded-lg m-3 overflow-hidden;
+	@apply relative pt-3 pl-3 pb-3 bg-white border border-gray-200 rounded-lg m-3 overflow-hidden pr-20;
 	box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
 
 
